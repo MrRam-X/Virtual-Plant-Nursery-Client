@@ -43,12 +43,15 @@ A beautifully designed, fully responsive e-commerce web application for a virtua
 
 ---
 
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- **Node.js:** `v18.20.0` or higher
-- **npm** or **yarn**: npm v.10.8.2
+- **Node.js:** `v18.20.0` or higher  
+- **npm:** `v10.8.2` or use **yarn**
+
+---
 
 ### Installation
 
@@ -58,11 +61,12 @@ Clone the repository:
 git clone https://github.com/MrRam-X/Virtual-Plant-Nursery-Client.git
 cd planto-virtual-nursery
 
-npm install 
 
-OR
-
+npm install
+# OR
 yarn install
+
+npm run dev
 
 ```
 
@@ -71,11 +75,12 @@ yarn install
 ```sh
 npm run dev
 
-```
 Visit http://localhost:5173 in your browser.
+```
 
 ## Project folder structure
 
+```sh
 /
 ├── public/               # Static assets
 ├── src/
@@ -98,17 +103,28 @@ Visit http://localhost:5173 in your browser.
 ├── tsconfig.json         # TypeScript config
 └── README.md             # Project documentation
 
+```
+
 ## Contributing
 
 Feel free to fork the repo or use it as inspiration for your own UI/UX projects!
 
 Your contributions are welcome and appreciated! 🚀
 To contribute:
-- Fork the repo
-- Create Feature Branch: git checkout -b feature/AmazingFeature
-- Commit Changes: git commit -m 'Add some AmazingFeature'
-- Push Branch: git push origin feature/AmazingFeature
-- Open Pull Request
+1. Fork the repo
+2. Create Feature Branch: 
+```sh
+git checkout -b feature/AmazingFeature
+```
+3. Commit Changes: 
+```sh
+git commit -m 'Add some AmazingFeature'
+```
+4. Push Branch: 
+```sh
+git push origin feature/AmazingFeature
+```
+5. Open Pull Request
 Or simply open an issue with the label enhancement.
 
 ## Author
