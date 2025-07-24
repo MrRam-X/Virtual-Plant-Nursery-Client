@@ -1,54 +1,122 @@
-# React + TypeScript + Vite
+## Project Name:- 🌿 Virtual Plant Nursery (Client)
+## Project Owner:- Ram Prasad Baidya
+## Developer Name:- Ram Prasad Baidya
+## Linkedin Id:- https://www.linkedin.com/in/ram-prasad-baidya-452766160/
+## Email Id:- ramprasadbaidya21@gmail.com
+## Contact No:- +916290338636
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🌿 Planto - Virtual Plant Nursery
 
-Currently, two official plugins are available:
+A beautifully designed, fully responsive e-commerce web application for a virtual plant nursery. Built with a modern tech stack focused on performance, scalability, and maintainability.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Live Demo:** [https://productname.example.com](https://productname.example.com) <!-- Need to replace with the actual link -->
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Key Features
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Responsive First Design:** Mobile-first UI that seamlessly adapts across devices.
+- **Comprehensive Page Layouts:**
+  - **Homepage:** Hero section, featured categories, product showcases.
+  - **Shop Page:** Advanced filtering, sorting, product grid.
+  - **Product Detail Page:** Image gallery, quantity selector, detail accordions.
+  - **Static Pages:** About Us, Contact Us.
+  - **Auth Pages:** Immersive Login page.
+- **Interactive UI/UX:** Custom dropdowns, accordions, interactive product cards.
+- **Dynamic Filtering & Sorting:** Enhanced product discoverability.
+- **Wishlist & Cart Functionality:** Essential e-commerce tools with modern UI integration.
+
+<!-- Need to add further modules above -->
+
+---
+
+## 🛠️ Technologies Used
+
+| Tech            | Purpose                                         |
+|-----------------|--------------------------------------------------|
+| React           | UI development                                   |
+| Vite            | Fast build tool                                  |
+| TypeScript      | Type-safe development                            |
+| Tailwind CSS    | Utility-first styling                            |
+| React Router DOM| Client-side routing                              |
+| Font Awesome    | Icon set                                         |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js:** `v18.20.0` or higher
+- **npm** or **yarn**: npm v.10.8.2
+
+### Installation
+
+Clone the repository:
+
+```sh
+git clone https://github.com/MrRam-X/Virtual-Plant-Nursery-Client.git
+cd planto-virtual-nursery
+
+npm install 
+
+OR
+
+yarn install
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Running the Application
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```sh
+npm run dev
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+Visit http://localhost:5173 in your browser.
+
+## Project folder structure
+
+/
+├── public/               # Static assets
+├── src/
+│   ├── assets/           # Logos, fonts, images
+│   ├── components/       # Reusable UI elements
+│   ├── features/         # Feature-based modules
+│   ├── hooks/            # Custom hooks
+│   ├── lib/              # Utils and API helpers
+│   ├── pages/            # Top-level routes
+│   ├── services/         # API service configs
+│   ├── styles/           # Global styles and Tailwind config
+│   ├── App.tsx           # Main app component
+│   └── main.tsx          # Entry point
+├── .eslintrc.cjs         # ESLint config
+├── .gitignore            # Git ignore rules
+├── index.html            # HTML for Vite
+├── package.json          # Scripts & dependencies
+├── postcss.config.js     # PostCSS setup
+├── tailwind.config.js    # Tailwind setup
+├── tsconfig.json         # TypeScript config
+└── README.md             # Project documentation
+
+## Contributing
+
+Feel free to fork the repo or use it as inspiration for your own UI/UX projects!
+
+Your contributions are welcome and appreciated! 🚀
+To contribute:
+- Fork the repo
+- Create Feature Branch: git checkout -b feature/AmazingFeature
+- Commit Changes: git commit -m 'Add some AmazingFeature'
+- Push Branch: git push origin feature/AmazingFeature
+- Open Pull Request
+Or simply open an issue with the label enhancement.
+
+## Author
+
+Ram Prasad Baidya
+Github: https://github.com/MrRam-X
+Linkedin: https://www.linkedin.com/in/ram-prasad-baidya-452766160
+
+---
+
+🌱 Grow something amazing with Plant
