@@ -1,5 +1,3 @@
-import React from "react";
-
 const Product = () => {
   return (
     <div className="min-h-screen bg-brand-green flex flex-col items-center justify-center p-4">
