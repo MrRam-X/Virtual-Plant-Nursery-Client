@@ -171,16 +171,57 @@ export const Header: React.FC = () => {
             <nav className="flex-grow flex items-center justify-center">
               <ul className="flex flex-col items-center space-y-8 text-4xl font-serif text-white">
                 <li>
-                  <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-brand-accent font-semibold"
+                        : "hover:text-brand-accent"
+                    }
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
                     Home
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/shop" onClick={() => setMobileMenuOpen(false)}>
+                  <NavLink
+                    to="/shop"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-brand-accent font-semibold"
+                        : "hover:text-brand-accent"
+                    }
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
                     Shop
-                  </Link>
+                  </NavLink>
                 </li>
-                {/* ... etc */}
+                <li>
+                  <NavLink
+                    to="/about"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-brand-accent font-semibold"
+                        : "hover:text-brand-accent"
+                    }
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    About
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/contact"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-brand-accent font-semibold"
+                        : "hover:text-brand-accent"
+                    }
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Contact
+                  </NavLink>
+                </li>
               </ul>
             </nav>
           </div>
