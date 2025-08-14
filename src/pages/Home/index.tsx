@@ -1,9 +1,13 @@
 import heroBackgroundImage from "../../assets/images/planto-background.jpeg";
 import { useGlobalContext } from "../../context/GlobalContext";
 import { Link } from "react-router-dom";
+import useHomePageData from "./hooks/useHomePageData";
+import FeaturedProducts from "./components/FeaturedProducts";
 
 const Home = () => {
   const { showComingSoonToaster } = useGlobalContext();
+  const { featuredProducts } = useHomePageData();
+
   return (
     <main>
       <section className="relative bg-brand-green h-[calc(100vh-80px)] min-h-[500px]">
@@ -82,110 +86,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="pb-16 sm:pb-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl text-brand-green">
-              Featured Products
-            </h2>
-            <p className="text-lg mt-2">Check out our most popular plants</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white shadow-lg group">
-              <div className="relative overflow-hidden">
-                <img
-                  src="https://images.pexels.com/photos/6297518/pexels-photo-6297518.jpeg"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="Monstera Deliciosa"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <a
-                    href="#"
-                    className="bg-white text-brand-green py-2 px-4 font-semibold"
-                  >
-                    Add to Cart
-                  </a>
-                </div>
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-xl font-medium">Monstera Deliciosa</h3>
-                <p className="text-lg text-brand-accent font-bold mt-1">
-                  $45.00
-                </p>
-              </div>
-            </div>
-            <div className="bg-white shadow-lg group">
-              <div className="relative overflow-hidden">
-                <img
-                  src="https://images.pexels.com/photos/1383044/pexels-photo-1383044.jpeg"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="Snake Plant"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <a
-                    href="#"
-                    className="bg-white text-brand-green py-2 px-4 font-semibold"
-                  >
-                    Add to Cart
-                  </a>
-                </div>
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-xl font-medium">Snake Plant</h3>
-                <p className="text-lg text-brand-accent font-bold mt-1">
-                  $35.00
-                </p>
-              </div>
-            </div>
-            <div className="bg-white shadow-lg group">
-              <div className="relative overflow-hidden">
-                <img
-                  src="https://images.pexels.com/photos/7245625/pexels-photo-7245625.jpeg"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="Fiddle Leaf Fig"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <a
-                    href="#"
-                    className="bg-white text-brand-green py-2 px-4 font-semibold"
-                  >
-                    Add to Cart
-                  </a>
-                </div>
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-xl font-medium">Fiddle Leaf Fig</h3>
-                <p className="text-lg text-brand-accent font-bold mt-1">
-                  $75.00
-                </p>
-              </div>
-            </div>
-            <div className="bg-white shadow-lg group">
-              <div className="relative overflow-hidden">
-                <img
-                  src="https://images.pexels.com/photos/824572/pexels-photo-824572.jpeg"
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="ZZ Plant"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <a
-                    href="#"
-                    className="bg-white text-brand-green py-2 px-4 font-semibold"
-                  >
-                    Add to Cart
-                  </a>
-                </div>
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-xl font-medium">ZZ Plant</h3>
-                <p className="text-lg text-brand-accent font-bold mt-1">
-                  $40.00
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeaturedProducts featuredProducts={featuredProducts}/>
 
       <section className="container mx-auto px-4 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white shadow-lg">
