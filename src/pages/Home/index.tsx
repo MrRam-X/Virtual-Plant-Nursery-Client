@@ -1,4 +1,5 @@
 import heroBackgroundImage from "../../assets/images/planto-background.jpeg";
+import guideSectionImage from '../../assets/images/planto-homepage-section.jpeg'
 import { useGlobalContext } from "../../context/GlobalContext";
 import { Link } from "react-router-dom";
 import useHomePageData from "./hooks/useHomePageData";
@@ -9,7 +10,7 @@ const Home = () => {
   const { featuredProducts } = useHomePageData();
 
   return (
-    <main>
+    <main className="flex-grow">
       <section className="relative bg-brand-green h-[calc(100vh-80px)] min-h-[500px]">
         <div className="absolute inset-0">
           <img
@@ -86,7 +87,7 @@ const Home = () => {
         </div>
       </section>
 
-      <FeaturedProducts featuredProducts={featuredProducts}/>
+      <FeaturedProducts featuredProducts={featuredProducts} />
 
       <section className="container mx-auto px-4 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white shadow-lg">
@@ -107,7 +108,7 @@ const Home = () => {
           </div>
           <div className="order-1 lg:order-2 h-64 lg:h-full min-h-[300px]">
             <img
-              src="https://images.unsplash.com/photo-1521334884684-d80222895322?q=80&w=2874&auto=format&fit=crop"
+              src={guideSectionImage}
               alt="Woman tending to plants"
               className="w-full h-full object-cover"
             />
