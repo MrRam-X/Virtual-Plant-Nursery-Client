@@ -10,7 +10,7 @@ const Home = () => {
   const { featuredProducts } = useHomePageData();
 
   return (
-    <main className="flex-grow">
+    <main className="flex-grow bg-brand-off-white">
       <section className="relative bg-brand-green h-[calc(100vh-80px)] min-h-[500px]">
         <div className="absolute inset-0">
           <img
