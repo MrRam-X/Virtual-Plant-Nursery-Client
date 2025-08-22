@@ -34,7 +34,7 @@ const API_ROUTE_PARAM_NAMES = {
 const APP_ROUTE_NAMES = {
   HOME: '/',
   SHOP: '/shop',
-  PRODUCT: '/product/:id',
+  PRODUCT: '/product',
   ABOUT: '/about',
   CONTACT: '/contact',
   LOGIN: '/login',
