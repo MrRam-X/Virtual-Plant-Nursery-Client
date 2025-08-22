@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import type { Product } from "../../types/Product";
-import { useGlobalContext } from "../../context/GlobalContext";
-import { productService } from "../../services/productService";
-import { useShoppingPageUI } from "./hooks/useShoppingPageFilters";
-import ProductCard from "./components/ProductCard";
+import { useState } from "react";
+import useShoppingPageFilters from "./hooks/useShoppingPageFilters";
 import heroBackgroundImage from "../../assets/images/planto-background.jpeg";
+import ProductsList from "./components/ProductsList";
+import useShoppingPageData from "./hooks/useShoppingPageData";
+import ProductsPagination from "./components/ProductsPagination";
 
 const Shop = () => {
   // --- UI Logic Hook ---
@@ -17,29 +15,20 @@ const Shop = () => {
     toggleSortDropdown,
     closeSortDropdown,
     toggleAccordion,
-  } = useShoppingPageUI();
+  } = useShoppingPageFilters();
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const { addToast, showSpinner, hideSpinner } = useGlobalContext();
+  const {
+    products,
+    paginationButtons,
+    currentPage,
+    hasPrev,
+    hasNext,
+    productNumbersInfoDisplayText,
+    goToPrevPage,
+    goToNextPage,
+    goToPage,
+  } = useShoppingPageData();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      showSpinner();
-      try {
-        // Need to pass filter params from state in future when api is modified
-        const data = await productService.getAllProducts();
-        setProducts(data);
-      } catch (err) {
-        addToast("Could not fetch products.", "error");
-        console.log(err);
-      } finally {
-        hideSpinner();
-      }
-    };
-    fetchProducts();
-  }, [addToast]);
-
-  // --- State for Sort Dropdown ---
   const [selectedSort, setSelectedSort] = useState("Sort by: Latest");
 
   const handleSelectSort = (option: string) => {
@@ -192,12 +181,12 @@ const Shop = () => {
             </div>
           </aside>
 
-          {/* ===== RIGHT SIDE - PRODUCTS ===== */}
+          {/* ===== RIGHT SIDE DISPLAY - PRODUCTS ===== */}
           <div className="lg:col-span-3">
             {/* Top Bar: Mobile Filters & Sorting */}
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
               <p className="text-gray-600 w-full sm:w-auto">
-                Showing 1-9 of {products.length} products
+                {productNumbersInfoDisplayText}
               </p>
               <div className="flex items-center gap-4 w-full sm:w-auto">
                 <button
@@ -255,48 +244,18 @@ const Shop = () => {
             </div>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
-              {/* Need to map Product Card info from api response once the api is updated */}
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-            </div>
+            <ProductsList products={products} />
 
             {/* Pagination */}
-            <div className="flex justify-center mt-12">
-              <nav className="flex items-center space-x-2">
-                <Link
-                  to={"/shop"}
-                  className="px-4 py-2 border rounded-md hover:bg-gray-200 transition-colors"
-                >
-                  <i className="fas fa-chevron-left"></i>
-                </Link>
-                <Link
-                  to={"/shop"}
-                  className="px-4 py-2 border rounded-md bg-brand-green text-white"
-                >
-                  1
-                </Link>
-                <Link
-                  to={"/shop"}
-                  className="px-4 py-2 border rounded-md hover:bg-gray-200 transition-colors"
-                >
-                  2
-                </Link>
-                <Link
-                  to={"/shop"}
-                  className="px-4 py-2 border rounded-md hover:bg-gray-200 transition-colors"
-                >
-                  <i className="fas fa-chevron-right"></i>
-                </Link>
-              </nav>
-            </div>
+            <ProductsPagination
+              hasPrev={hasPrev}
+              hasNext={hasNext}
+              currentPage={currentPage}
+              paginationButtons={paginationButtons}
+              goToPrevPage={goToPrevPage}
+              goToNextPage={goToNextPage}
+              goToPage={goToPage}
+            />
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ type AccordionState = {
   [key: string]: boolean;
 };
 
-export const useShoppingPageUI = () => {
+const useShoppingPageFilters = () => {
   const [isMobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [isSortDropdownOpen, setSortDropdownOpen] = useState(false);
   const [openAccordions, setOpenAccordions] = useState<AccordionState>({});
@@ -48,3 +48,5 @@ export const useShoppingPageUI = () => {
     toggleAccordion,
   };
 };
+
+export default useShoppingPageFilters
