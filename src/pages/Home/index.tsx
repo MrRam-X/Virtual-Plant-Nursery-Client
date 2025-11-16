@@ -21,7 +21,7 @@ const Home = () => {
           />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-start text-white">
+        <div className="relative z-10 container mx-auto max-w-6xl px-4 h-full flex flex-col justify-center items-start text-white">
           <h1 className="font-serif text-5xl md:text-7xl leading-tight">
             Bring Serenity
           </h1>
@@ -45,7 +45,7 @@ const Home = () => {
 
       <FeaturedProducts featuredProducts={featuredProducts} />
 
-      <section className="container mx-auto px-4 pb-16 sm:pb-24">
+      <section className="container mx-auto max-w-6xl px-4 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white shadow-lg">
           <div className="order-2 lg:order-1 p-8 md:p-12">
             <h2 className="font-serif text-4xl text-brand-green leading-tight">
@@ -56,7 +56,7 @@ const Home = () => {
               green companion for your home and lifestyle.
             </p>
             <button
-              onClick={() => showComingSoonToaster("Sign Up")}
+              onClick={() => showComingSoonToaster("Explore Guide")}
               className="bg-brand-green text-white font-bold py-3 px-8 text-lg hover:bg-brand-green-light"
             >
               Explore Guide
