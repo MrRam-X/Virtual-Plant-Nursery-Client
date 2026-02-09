@@ -53,32 +53,6 @@ const LoginForm = () => {
             />
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 rounded accent-brand-green focus:ring-brand-accent"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <button
-                onClick={() => showComingSoonToaster("Forgot password")}
-                className="font-medium text-brand-green hover:text-brand-accent"
-              >
-                Forgot password?
-              </button>
-            </div>
-          </div>
-
           <div>
             <button
               type="submit"
@@ -88,6 +62,32 @@ const LoginForm = () => {
             </button>
           </div>
         </form>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">OR</span>
+            </div>
+          </div>
+
+          {/* Google Sign-In Button */}
+          <div className="mt-6">
+            <button
+              type="button"
+              className="w-full inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              <img
+                className="h-5 w-5 mr-3"
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                alt="Google G Logo"
+              />
+              Sign in with Google
+            </button>
+          </div>
+        </div>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
