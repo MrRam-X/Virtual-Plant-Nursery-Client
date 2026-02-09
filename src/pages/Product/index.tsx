@@ -1,9 +1,30 @@
-const Product = () => {
+import ProductDetails from "./components/ProductDetails";
+import SimilarProductsList from "./components/SimilarProductsList";
+
+const Product: React.FC = () => {
   return (
-    <div className="min-h-screen bg-brand-green flex flex-col items-center justify-center p-4">
-      <h1 className="text-6xl font-serif text-white mb-4">Planto.</h1>
-      <p className="text-xl text-brand-accent">Product Page</p>
-    </div>
+    <main className="bg-brand-off-white py-8 sm:py-12">
+      <div className="container mx-auto px-4 max-w-6xl">
+        {/* Breadcrumb Navigation */}
+        <div className="text-sm mb-8">
+          <a href="index.html" className="hover:text-brand-accent">
+            Home
+          </a>
+          <span className="mx-2 text-gray-400">/</span>
+          <a href="shoppingPage.html" className="hover:text-brand-accent">
+            Shop
+          </a>
+          <span className="mx-2 text-gray-400">/</span>
+          <span className="text-gray-500">Monstera Deliciosa</span>
+        </div>
+
+        {/* Main Product Section */}
+        <ProductDetails />
+
+        {/* Related Products Section */}
+        <SimilarProductsList />
+      </div>
+    </main>
   );
 };
 
