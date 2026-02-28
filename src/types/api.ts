@@ -7,3 +7,13 @@ export interface PaginatedResponse<T> {
   hasNext: boolean;
   data: T[];
 }
+
+export type QueryParams = Record<
+  string,
+  | string
+  | number
+  | boolean
+  | Array<string | number | boolean>
+  | undefined
+  | null
+>;

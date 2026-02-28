@@ -1,9 +1,8 @@
 import axios from "axios";
 import type { Product } from "../types/Product";
 import { API_URL, API_ROUTE_NAMES } from "../appConstant";
-import type { PaginatedResponse } from "../types/api";
-
-type QueryParams = Record<string, string | number | boolean>;
+import type { PaginatedResponse, QueryParams } from "../types/api";
+import { objectToQueryString } from "../utils/apiUtil";
 
 const apiClient = axios.create({
   baseURL: `${API_URL}`,
@@ -21,12 +20,12 @@ const { FEATURED, PRODUCTS, SIMILAR } = API_ROUTE_NAMES;
  * @returns A promise that resolves to an array of Product objects.
  */
 const getAllProducts = async (
-  params?: QueryParams
+  params: QueryParams
 ): Promise<PaginatedResponse<Product>> => {
+  const paramStr = objectToQueryString(params)
   try {
     const response = await apiClient.get<PaginatedResponse<Product>>(
-      `/${PRODUCTS}`,
-      { params }
+      `/${PRODUCTS}${paramStr ? ''.concat('?', paramStr) : ''}`
     );
     return response.data;
   } catch (error) {
