@@ -89,6 +89,13 @@ const FEATURED_CATEGORIES = [
 
 const MAX_PAGINATION_BUTTONS = 3
 
+const PRODUCT_CATEGORY_LIST = [
+  'Indoor Plants',
+  'Outdoor Plants',
+  'Succulents',
+  'Gardening Tools'
+]
+
 export {
   API_URL,
   API_ROUTE_NAMES,
@@ -97,5 +104,6 @@ export {
   FEATURED_CATEGORIES,
   APP_ROUTE_NAMES,
   APP_ROUTES,
-  MAX_PAGINATION_BUTTONS
+  MAX_PAGINATION_BUTTONS,
+  PRODUCT_CATEGORY_LIST
 };

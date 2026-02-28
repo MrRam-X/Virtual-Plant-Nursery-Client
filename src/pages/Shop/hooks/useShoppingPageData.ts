@@ -6,7 +6,7 @@ import { useProducts } from "./useProducts";
 const useShoppingPageData = () => {
   const { addToast, showSpinner, hideSpinner } = useGlobalContext();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [filters, setFilters] = useState<Record<string, string[]>>({});
+  const [filters, setFilters] = useState<Record<string, string[] | string>>({});
   const [limit] = useState<number>(9);
 
   const { data, isLoading, isFetching, isError, error } = useProducts({

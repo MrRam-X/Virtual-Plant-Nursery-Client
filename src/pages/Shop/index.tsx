@@ -4,19 +4,9 @@ import heroBackgroundImage from "../../assets/images/planto-background.jpeg";
 import ProductsList from "./components/ProductsList";
 import useShoppingPageData from "./hooks/useShoppingPageData";
 import ProductsPagination from "./components/ProductsPagination";
+import { PRODUCT_CATEGORY_LIST } from "../../appConstant";
 
 const Shop = () => {
-  // --- UI Logic Hook ---
-  const {
-    isMobileFilterOpen,
-    isSortDropdownOpen,
-    openAccordions,
-    toggleMobileFilter,
-    toggleSortDropdown,
-    closeSortDropdown,
-    toggleAccordion,
-  } = useShoppingPageFilters();
-
   const {
     products,
     paginationButtons,
@@ -27,9 +17,25 @@ const Shop = () => {
     goToPrevPage,
     goToNextPage,
     goToPage,
+    setFilters,
   } = useShoppingPageData();
 
   const [selectedSort, setSelectedSort] = useState("Sort by: Latest");
+
+  const {
+    isMobileFilterOpen,
+    isSortDropdownOpen,
+    openAccordions,
+    selectedCategories,
+    priceInput,
+    toggleMobileFilter,
+    toggleSortDropdown,
+    closeSortDropdown,
+    toggleAccordion,
+    handleCategoryChange,
+    handlePriceInputChange,
+    applyFilterButtonHandler,
+  } = useShoppingPageFilters(setFilters);
 
   const handleSelectSort = (option: string) => {
     setSelectedSort(option);
@@ -97,34 +103,18 @@ const Shop = () => {
                     }`}
                   >
                     {/* Checkbox items */}
-                    <label className="flex items-center">
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 rounded accent-brand-green"
-                      />
-                      <span className="ml-3">Indoor Plants</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 rounded accent-brand-green"
-                      />
-                      <span className="ml-3">Outdoor Plants</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 rounded accent-brand-green"
-                      />
-                      <span className="ml-3">Succulents</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 rounded accent-brand-green"
-                      />
-                      <span className="ml-3">Gardening Tools</span>
-                    </label>
+                    {PRODUCT_CATEGORY_LIST.map((category) => (
+                      <label className="flex items-center" key={category}>
+                        <input
+                          type="checkbox"
+                          value={category}
+                          checked={selectedCategories.includes(category)}
+                          onChange={handleCategoryChange}
+                          className="h-4 w-4 rounded accent-brand-green"
+                        />
+                        <span className="ml-3">{category}</span>
+                      </label>
+                    ))}
                   </div>
                 </div>
                 {/* Price Range Filter Accordion */}
@@ -154,6 +144,9 @@ const Shop = () => {
                           Min
                         </label>
                         <input
+                          name="min"
+                          value={priceInput.min}
+                          onChange={handlePriceInputChange}
                           type="number"
                           id="min-price"
                           placeholder="$0"
@@ -165,6 +158,9 @@ const Shop = () => {
                           Max
                         </label>
                         <input
+                          name="max"
+                          value={priceInput.max}
+                          onChange={handlePriceInputChange}
                           type="number"
                           id="max-price"
                           placeholder="$500"
@@ -174,7 +170,10 @@ const Shop = () => {
                     </div>
                   </div>
                 </div>
-                <button className="w-full py-3 px-4 rounded-md text-lg font-bold text-white bg-brand-green hover:bg-brand-green-light transition-all">
+                <button
+                  onClick={applyFilterButtonHandler}
+                  className="w-full py-3 px-4 rounded-md text-lg font-bold text-white bg-brand-green hover:bg-brand-green-light transition-all"
+                >
                   Apply Filters
                 </button>
               </div>

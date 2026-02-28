@@ -8,7 +8,7 @@ export const useProducts = ({
   filters,
 }: {
   page: number;
-  filters: Record<string, string[]>;
+  filters: Record<string, string[] | string>;
 }) => {
   return useQuery<PaginatedResponse<Product>>({
     queryKey: [
