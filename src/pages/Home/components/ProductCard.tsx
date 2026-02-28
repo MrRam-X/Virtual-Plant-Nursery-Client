@@ -3,13 +3,12 @@ import type { Product } from "../../../types/Product";
 import { Link } from "react-router-dom";
 
 export type ProductProps = {
-  key: string;
   product: Product;
 };
 
-const ProductCard: React.FC<ProductProps> = ({ product, key }) => {
+const ProductCard: React.FC<ProductProps> = ({ product }) => {
   return (
-    <div className="bg-white shadow-lg group" key={key}>
+    <div className="bg-white shadow-lg group">
       <div className="relative overflow-hidden">
         <div className="absolute top-0 left-0 bg-brand-accent text-white text-xs font-bold px-2 py-1 m-3 rounded-md z-10">
           {product.discount}

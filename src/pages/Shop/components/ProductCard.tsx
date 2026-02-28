@@ -3,16 +3,12 @@ import type { Product } from "../../../types/Product";
 import { APP_ROUTE_NAMES } from "../../../appConstant";
 
 type ProductCardProps = {
-  key: string;
   product: Product;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ key, product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div
-      className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200 flex flex-col"
-      key={key}
-    >
+    <div className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200 flex flex-col">
       <div className="flex-grow">
         <Link
           to={`${APP_ROUTE_NAMES.PRODUCT}/${product._id}`}
