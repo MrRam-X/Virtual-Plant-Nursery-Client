@@ -5,7 +5,8 @@ const useProductDetails = () => {
     const [productDetails, setProductDetails] = useState<Product>()
 
     return {
-        productDetails
+        productDetails,
+        setProductDetails
     }
 }
 

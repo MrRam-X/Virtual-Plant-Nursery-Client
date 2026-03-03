@@ -1,6 +1,6 @@
 import React from "react";
 
-const ImageGallery = () => {
+const ImageGallery: React.FC = () => {
   return (
     <div id="image-gallery">
       <div className="main-image bg-white aspect-square rounded-lg shadow-sm border border-gray-200 mb-4">
