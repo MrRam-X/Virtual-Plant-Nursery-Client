@@ -36,6 +36,21 @@ const getAllProducts = async (
 
 /**
  * Fetches a list of featured products.
+ * @param id - A string type id of a product 
+ * @returns A promise that resolves to an Product object.
+ */
+const getProductDetails = async (id: string): Promise<Product> => {
+  try {
+    const response = await apiClient.get<Product>(`/${PRODUCTS}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching product details:", error);
+    throw new Error("Failed to fetch product details.");
+  }
+};
+
+/**
+ * Fetches a list of featured products.
  * @returns A promise that resolves to an array of Product objects.
  */
 const getFeaturedProducts = async (): Promise<Product[]> => {
@@ -72,6 +87,7 @@ const getSimilarProducts = async (params: QueryParams): Promise<Product[]> => {
 
 export const productService = {
   getAllProducts,
+  getProductDetails,
   getFeaturedProducts,
   getSimilarProducts,
 };

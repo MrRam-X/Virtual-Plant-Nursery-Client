@@ -1,11 +1,30 @@
 import React from "react";
+import type { Product } from "../../../types/Product";
+import { generatePriceTextWithCurrency } from "../../../utils/commonUtil";
 
-const ProductInfo: React.FC = () => {
+export type ProductInfoProps = {
+  productDetails: Product | undefined;
+};
+
+const ProductInfo: React.FC<ProductInfoProps> = ({ productDetails }) => {
+  const actualPrice = generatePriceTextWithCurrency(
+    productDetails?.currency || "",
+    productDetails?.price || 0,
+  );
+  const discountedPrice = generatePriceTextWithCurrency(
+    productDetails?.currency || "",
+    productDetails?.discountedPrice || 0,
+  );
+
   return (
     <div className="space-y-6">
       <h1 className="font-serif text-4xl lg:text-5xl text-brand-green">
-        Monstera Deliciosa
+        {productDetails?.name || ""}
       </h1>
+
+      <h3 className="text-xl lg:text-2xl">
+        Scientific Name: {productDetails?.scientificName}
+      </h3>
 
       <div className="flex items-center gap-4">
         <div className="flex items-center text-yellow-500">
@@ -16,20 +35,17 @@ const ProductInfo: React.FC = () => {
           <i className="fas fa-star-half-alt"></i>
         </div>
         <a href="#" className="text-sm text-gray-600 hover:underline">
-          (12 Reviews)
+          ({productDetails?.reviews || 0} Reviews)
         </a>
       </div>
 
       <div className="flex items-baseline gap-2">
-        <p className="text-3xl text-black font-bold">$36.00</p>
-        <p className="text-xl text-gray-500 line-through">$45.00</p>
+        <p className="text-3xl text-black font-bold">{discountedPrice}</p>
+        <p className="text-xl text-gray-500 line-through">{actualPrice}</p>
       </div>
 
       <p className="text-gray-700 leading-relaxed">
-        The Monstera Deliciosa, often called the Swiss Cheese Plant, is a
-        tropical icon known for its unique, fenestrated leaves. It's a
-        relatively easy-to-care-for statement piece that brings a lush, jungle
-        vibe to any room.
+        {productDetails?.description || ""}
       </p>
 
       <div className="flex items-center gap-4 pt-4">
