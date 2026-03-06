@@ -20,12 +20,12 @@ const { FEATURED, PRODUCTS, SIMILAR } = API_ROUTE_NAMES;
  * @returns A promise that resolves to an array of Product objects.
  */
 const getAllProducts = async (
-  params: QueryParams
+  params: QueryParams,
 ): Promise<PaginatedResponse<Product>> => {
-  const paramStr = objectToQueryString(params)
+  const paramStr = objectToQueryString(params);
   try {
     const response = await apiClient.get<PaginatedResponse<Product>>(
-      `/${PRODUCTS}${paramStr ? ''.concat('?', paramStr) : ''}`
+      `/${PRODUCTS}${paramStr ? "".concat("?", paramStr) : ""}`,
     );
     return response.data;
   } catch (error) {
@@ -36,7 +36,7 @@ const getAllProducts = async (
 
 /**
  * Fetches a list of featured products.
- * @param id - A string type id of a product 
+ * @param id - A string type id of a product
  * @returns A promise that resolves to an Product object.
  */
 const getProductDetails = async (id: string): Promise<Product> => {
@@ -74,10 +74,12 @@ const getSimilarProducts = async (params: QueryParams): Promise<Product[]> => {
     throw new Error("Similar products query requires at least one parameter.");
   }
 
+  const paramStr = objectToQueryString(params);
+
   try {
-    const response = await apiClient.get<Product[]>(`/${PRODUCTS}/${SIMILAR}`, {
-      params,
-    });
+    const response = await apiClient.get<Product[]>(
+      `/${PRODUCTS}/${SIMILAR}${paramStr ? "".concat("?", paramStr) : ""}`,
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching similar products:", error);

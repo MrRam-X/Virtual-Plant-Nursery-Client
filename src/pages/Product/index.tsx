@@ -3,7 +3,7 @@ import SimilarProductsList from "./components/SimilarProductsList";
 import useProductDetailsPageData from "./hooks/useProductDetailsPageData";
 
 const Product: React.FC = () => {
-  const { productDetails } = useProductDetailsPageData()
+  const { productDetails, similarProducts } = useProductDetailsPageData()
 
   return (
     <main className="bg-brand-off-white py-8 sm:py-12">
@@ -25,7 +25,7 @@ const Product: React.FC = () => {
         <ProductDetails productDetails={productDetails}/>
 
         {/* Related Products Section */}
-        <SimilarProductsList />
+        <SimilarProductsList similarProducts={similarProducts}/>
       </div>
     </main>
   );
