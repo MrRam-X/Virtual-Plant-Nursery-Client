@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
-
-// A key-value object to track which accordions are open
-type AccordionState = {
-  [key: string]: boolean;
-};
+import useAccordions from "../../../hooks/useAccordions";
 
 const useShoppingPageFilters = (
-  setFilters: React.Dispatch<React.SetStateAction<Record<string, string | string[]>>>
+  setFilters: React.Dispatch<
+    React.SetStateAction<Record<string, string | string[]>>
+  >,
 ) => {
   const [isMobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [isSortDropdownOpen, setSortDropdownOpen] = useState(false);
-  const [openAccordions, setOpenAccordions] = useState<AccordionState>({});
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceInput, setPriceInput] = useState({ min: "", max: "" });
+
+  const { openAccordions, toggleAccordion } = useAccordions();
   // Effect to prevent body scroll when the mobile filter panel is open
   useEffect(() => {
     document.body.style.overflow = isMobileFilterOpen ? "hidden" : "";
@@ -31,14 +30,6 @@ const useShoppingPageFilters = (
   // Handler to close the sort dropdown (e.g., when an option is selected)
   const closeSortDropdown = () => {
     setSortDropdownOpen(false);
-  };
-
-  // Handler to toggle a specific accordion by its name
-  const toggleAccordion = (name: string) => {
-    setOpenAccordions((prev) => ({
-      ...prev,
-      [name]: !prev[name], // Toggle the boolean value for the given name
-    }));
   };
 
   // Handler for multiselect category checkboxes

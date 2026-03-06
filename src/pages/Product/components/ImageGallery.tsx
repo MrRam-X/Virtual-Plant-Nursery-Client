@@ -12,7 +12,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ imageUrl, name }) => {
       <div className="main-image bg-white aspect-square rounded-lg shadow-sm border border-gray-200 mb-4">
         <img
           id="main-product-image"
-          src={selectedImageUrl}
+          src={selectedImageUrl || imageUrl[0]}
           alt={`An image of ${name}`}
           className="w-full h-full object-cover rounded-md"
         />

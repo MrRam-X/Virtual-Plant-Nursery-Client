@@ -1,6 +1,7 @@
 import React from "react";
 import type { Product } from "../../../types/Product";
 import { generatePriceTextWithCurrency } from "../../../utils/commonUtil";
+import useAccordions from "../../../hooks/useAccordions";
 
 export type ProductInfoProps = {
   productDetails: Product | undefined;
@@ -15,6 +16,8 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productDetails }) => {
     productDetails?.currency || "",
     productDetails?.discountedPrice || 0,
   );
+
+  const { openAccordions, toggleAccordion } = useAccordions();
 
   return (
     <div className="space-y-6">
@@ -83,50 +86,51 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productDetails }) => {
         {/* Care Guide Accordion */}
         <div className="border-t">
           <button
+            onClick={() => toggleAccordion("careGuide")}
             data-accordion-button
             className="w-full flex justify-between items-center py-4 text-left"
           >
             <h3 className="font-semibold text-lg text-brand-green">
               Care Guide
             </h3>
-            <i className="fas fa-plus transition-transform duration-300"></i>
+            <i
+              className={`fas ${openAccordions["careGuide"] ? "fa-minus" : "fa-plus"} transition-transform duration-300 ${openAccordions["careGuide"] ? "rotate-180" : ""}`}
+            ></i>
           </button>
           <div
-            className="pb-4 space-y-2 text-gray-600 hidden"
+            className={`pb-4 space-y-2 text-gray-600 ${openAccordions["careGuide"] ? "" : "hidden"}`}
             data-accordion-panel
           >
-            <p>
-              <strong>Light:</strong> Bright, indirect sunlight. Avoid direct
-              sun.
-            </p>
-            <p>
-              <strong>Water:</strong> Water every 1-2 weeks, allowing soil to
-              dry out between waterings.
-            </p>
-            <p>
-              <strong>Humidity:</strong> Prefers humid conditions. Mist
-              regularly.
-            </p>
+
+            {Object.entries(productDetails?.careGuide || {}).map(
+              ([key, value]) => (
+                <p key={key}>
+                  <strong>{key}:</strong> {value}
+                </p>
+              ),
+            )}
           </div>
         </div>
         {/* Shipping Accordion */}
         <div className="border-t">
           <button
+            onClick={() => toggleAccordion("shippingReturns")}
             data-accordion-button
             className="w-full flex justify-between items-center py-4 text-left"
           >
             <h3 className="font-semibold text-lg text-brand-green">
               Shipping & Returns
             </h3>
-            <i className="fas fa-plus transition-transform duration-300"></i>
+            <i
+              className={`fas ${openAccordions["shippingReturns"] ? "fa-minus" : "fa-plus"} transition-transform duration-300 ${openAccordions["shippingReturns"] ? "rotate-180" : ""}`}
+            ></i>
           </button>
           <div
-            className="pb-4 space-y-2 text-gray-600 hidden"
+            className={`pb-4 space-y-2 text-gray-600 ${openAccordions["shippingReturns"] ? "" : "hidden"}`}
             data-accordion-panel
           >
             <p>
-              Ships within 3-5 business days. We offer a 14-day return policy on
-              all plants if they arrive damaged.
+              {productDetails?.shippingDetails || ''}
             </p>
           </div>
         </div>

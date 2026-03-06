@@ -92,7 +92,7 @@ const Shop = () => {
                       Categories
                     </h3>
                     <i
-                      className={`fas fa-plus transition-transform duration-300 ${
+                      className={`fas ${openAccordions["category"] ? "fa-minus" : "fa-plus"} transition-transform duration-300 ${
                         openAccordions["category"] ? "rotate-180" : ""
                       }`}
                     ></i>
@@ -127,7 +127,7 @@ const Shop = () => {
                       Price Range
                     </h3>
                     <i
-                      className={`fas fa-plus transition-transform duration-300 ${
+                      className={`fas ${openAccordions["price"] ? "fa-minus" : "fa-plus"} transition-transform duration-300 ${
                         openAccordions["price"] ? "rotate-180" : ""
                       }`}
                     ></i>
