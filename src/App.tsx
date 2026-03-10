@@ -7,6 +7,7 @@ import MainLayout from "./components/layout/MainLayout";
 import NotFound from "./pages/NotFound";
 import { APP_ROUTES } from "./appConstant";
 import { Spinner } from "./components/spinner/Spinner";
+import { RouteGuard } from "./components/layout/RouteGuards";
 
 const App: React.FC = () => {
   return (
@@ -16,8 +17,16 @@ const App: React.FC = () => {
           <Suspense fallback={<Spinner />}>
             <Routes>
               <Route element={<MainLayout />}>
-                {APP_ROUTES.map(({ path, Component }) => (
-                  <Route key={path} path={path} element={<Component />} />
+                {APP_ROUTES.map(({ path, Component, routeType }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={
+                      <RouteGuard routeType={routeType}>
+                        <Component />
+                      </RouteGuard>
+                    }
+                  />
                 ))}
               </Route>
               <Route path="*" element={<NotFound />} />

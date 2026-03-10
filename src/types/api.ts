@@ -17,3 +17,8 @@ export type QueryParams = Record<
   | undefined
   | null
 >;
+
+export type UserLoginPayload = {
+  email: string;
+  password: string;
+}

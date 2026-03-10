@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { APP_ROUTE_NAMES } from "../../appConstant";
 
 export const Header: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const isLoginRoute = location.pathname === APP_ROUTE_NAMES.LOGIN;
 
   // Effect to prevent scrolling when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
   }, [isMobileMenuOpen]);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <header className="bg-brand-green sticky top-0 z-50">
@@ -132,7 +141,10 @@ export const Header: React.FC = () => {
                           </Link>
                         </li>
                         <li>
-                          <button className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">
+                          <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
+                          >
                             <i className="fas fa-sign-out-alt w-4"></i> Logout
                           </button>
                         </li>
@@ -143,7 +155,7 @@ export const Header: React.FC = () => {
               </>
             ) : (
               // --- Show this button if the user IS NOT logged in ---
-              <div>
+              <div className={`${isLoginRoute ? "hidden" : ""}`}>
                 <Link
                   to="/login"
                   className="bg-brand-accent text-black font-bold py-2 px-6 hover:bg-white hover:text-black transition-colors"

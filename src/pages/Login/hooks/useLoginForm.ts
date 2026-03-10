@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
+import { useGlobalContext } from "../../../context/GlobalContext";
+import { authService } from "../../../services/authService";
 
 type LoginFormData = {
   email: string;
@@ -12,12 +16,15 @@ const initialLoginFormState = {
 
 const useLoginForm = () => {
   const [loginFormData, setLoginFormData] = useState<LoginFormData>(
-    initialLoginFormState
+    initialLoginFormState,
   );
+  const { login } = useAuth();
+  const { showSpinner, hideSpinner, addToast } = useGlobalContext();
+  const navigate = useNavigate();
 
   // Function for updating form input fields change
   const loginFormInputFieldsHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { name, value } = event.target;
 
@@ -28,11 +35,33 @@ const useLoginForm = () => {
   };
 
   // Function for handling form submit
-  const loginFormSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const loginFormSubmitHandler = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
+    const { email, password } = loginFormData;
+    if (!email || !password) {
+      addToast("Please enter proper credentials", "error");
+      return;
+    }
+
+    try {
+      showSpinner();
+      const userData = await authService.userLoginWithEmailAndPassword({
+        email,
+        password,
+      });
+      login(userData);
+      navigate("/");
+    } catch (err) {
+      addToast("Login unsuccessful", "error");
+      console.log(err);
+    } finally {
+      hideSpinner();
+    }
 
     // --- Validation of form inputs and api call will be made here ---
-    console.log("form submit");
+    console.log("form submit", loginFormData);
   };
 
   return {

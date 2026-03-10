@@ -1,8 +1,10 @@
 import { lazy, type ComponentType } from "react";
 
+export type RouteType = 'guest' | 'private' | 'common';
 export interface AppRoute {
   path: string;
   Component: ComponentType;
+  routeType: RouteType;
 }
 
 // Lazy imports (only load when needed)
@@ -25,6 +27,7 @@ const API_ROUTE_NAMES = {
   FEATURED: "featured",
   PRODUCTS: "products",
   SIMILAR: "similar",
+  LOGIN: "auth/login"
 };
 
 const API_ROUTE_PARAM_NAMES = {
@@ -32,27 +35,27 @@ const API_ROUTE_PARAM_NAMES = {
 };
 
 const APP_ROUTE_NAMES = {
-  HOME: '/',
-  SHOP: '/shop',
-  PRODUCT: '/product',
-  ABOUT: '/about',
-  CONTACT: '/contact',
-  LOGIN: '/login',
-  ACCOUNT: '/account',
-  CART: '/cart',
-}
+  HOME: "/",
+  SHOP: "/shop",
+  PRODUCT: "/product",
+  ABOUT: "/about",
+  CONTACT: "/contact",
+  LOGIN: "/login",
+  ACCOUNT: "/account",
+  CART: "/cart",
+};
 
 const APP_ROUTES: AppRoute[] = [
-  { path: "/", Component: Home },
-  { path: "/shop", Component: Shop },
-  { path: "/product/:id", Component: Product },
-  { path: "/about", Component: About },
-  { path: "/contact", Component: Contact },
-  { path: "/login", Component: Login },
+  { path: "/", Component: Home, routeType: 'common' },
+  { path: "/shop", Component: Shop, routeType: 'common' },
+  { path: "/product/:id", Component: Product, routeType: 'common' },
+  { path: "/about", Component: About, routeType: 'common' },
+  { path: "/contact", Component: Contact, routeType: 'common' },
+  { path: "/login", Component: Login, routeType: 'guest' },
 
   // --- Private Routes ---
-  { path: "/account", Component: Profile},
-  { path: "/cart", Component: Cart},
+  { path: "/account", Component: Profile, routeType: 'private' },
+  { path: "/cart", Component: Cart, routeType: 'private' },
 ];
 
 const FEATURED_CATEGORIES = [
@@ -87,15 +90,15 @@ const FEATURED_CATEGORIES = [
   },
 ];
 
-const MAX_PAGINATION_BUTTONS = 3
-const MAX_SIMILAR_PRODUCTS_TO_DISPLAY = 4
+const MAX_PAGINATION_BUTTONS = 3;
+const MAX_SIMILAR_PRODUCTS_TO_DISPLAY = 4;
 
 const PRODUCT_CATEGORY_LIST = [
-  'Indoor Plants',
-  'Outdoor Plants',
-  'Succulents',
-  'Gardening Tools'
-]
+  "Indoor Plants",
+  "Outdoor Plants",
+  "Succulents",
+  "Gardening Tools",
+];
 
 export {
   API_URL,
@@ -107,5 +110,5 @@ export {
   APP_ROUTES,
   MAX_PAGINATION_BUTTONS,
   MAX_SIMILAR_PRODUCTS_TO_DISPLAY,
-  PRODUCT_CATEGORY_LIST
+  PRODUCT_CATEGORY_LIST,
 };

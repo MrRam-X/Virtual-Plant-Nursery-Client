@@ -10,8 +10,8 @@ const LoginForm = () => {
     <div className="w-full max-w-md">
       <div className="bg-white p-8 sm:p-10 rounded-lg shadow-2xl">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-brand-green">Welcome Back</h2>
-          <p className="text-gray-500">Please enter your details to sign in.</p>
+          <h2 className="text-2xl font-bold text-brand-green">Welcome</h2>
+          <p className="text-gray-500">Please use the placeholder creds to login</p>
         </div>
 
         <form onSubmit={loginFormSubmitHandler} className="space-y-6">
@@ -23,13 +23,13 @@ const LoginForm = () => {
               Email Address
             </label>
             <input
+              placeholder="testuser.planto@gmail.com"
               onChange={loginFormInputFieldsHandler}
               value={loginFormData.email}
               type="email"
               name="email"
               id="email"
               autoComplete="email"
-              required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-green focus:border-brand-green"
             />
           </div>
@@ -42,13 +42,13 @@ const LoginForm = () => {
               Password
             </label>
             <input
+              placeholder="test1234"
               onChange={loginFormInputFieldsHandler}
               value={loginFormData.password}
               type="password"
               name="password"
               id="password"
               autoComplete="current-password"
-              required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-green focus:border-brand-green"
             />
           </div>
@@ -73,8 +73,8 @@ const LoginForm = () => {
             </div>
           </div>
 
-          {/* Google Sign-In Button */}
-          <div className="mt-6">
+          <div className="mt-6 space-y-3">
+            {/* Google Sign-In Button */}
             <button
               type="button"
               className="w-full inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
@@ -85,6 +85,15 @@ const LoginForm = () => {
                 alt="Google G Logo"
               />
               Sign in with Google
+            </button>
+
+            {/* GitHub Sign-In Button */}
+            <button
+              type="button"
+              className="w-full inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              <i className="fab fa-github text-xl mr-3"></i>
+              Sign in with GitHub
             </button>
           </div>
         </div>
