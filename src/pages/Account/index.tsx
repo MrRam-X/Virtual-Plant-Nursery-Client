@@ -27,7 +27,7 @@ const TabPanels = {
 
   return (
     <main className="bg-brand-off-white py-8 sm:py-12 px-4 flex-grow">
-      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 lg:gap-12">
+      <div className="container max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-4 lg:gap-12">
         {/* LEFT SIDEBAR (Desktop View) */}
         <aside className="hidden lg:block lg:col-span-1">
           <div className="sticky top-28 bg-white p-6 rounded-lg shadow-sm border">
