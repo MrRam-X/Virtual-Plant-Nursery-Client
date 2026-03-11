@@ -3,7 +3,11 @@ import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { APP_ROUTE_NAMES } from "../../appConstant";
 
-export const Header: React.FC = () => {
+type HeaderProps = {
+  containerRef: React.RefObject<HTMLDivElement | null>;
+};
+
+export const Header: React.FC<HeaderProps> = ({ containerRef }) => {
   const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,6 +19,26 @@ export const Header: React.FC = () => {
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
   }, [isMobileMenuOpen]);
+
+  // Effect to close user profile dropdown outside click
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (containerRef.current) {
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [containerRef]);
+
+  const toggleProfileDropdown = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setProfileDropdownOpen((prev) => !prev);
+  };
 
   const handleLogout = () => {
     logout();
@@ -96,10 +120,8 @@ export const Header: React.FC = () => {
             </ul>
           </nav>
 
-          {/* === DYNAMIC ICONS vs LOGIN BUTTON === */}
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
-              // --- Show these icons if the user IS logged in ---
               <>
                 <Link
                   to="/search"
@@ -118,7 +140,7 @@ export const Header: React.FC = () => {
                 </Link>
                 <div className="relative">
                   <button
-                    onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                    onClick={toggleProfileDropdown}
                     className="flex items-center gap-1 text-white hover:text-brand-accent"
                   >
                     <i className="fas fa-user fa-lg"></i>
@@ -128,33 +150,31 @@ export const Header: React.FC = () => {
                       }`}
                     ></i>
                   </button>
-                  {!isProfileDropdownOpen ? null : (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">
-                      <ul className="py-1 text-gray-700">
-                        <li>
-                          <Link
-                            to="/account"
-                            className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-100"
-                          >
-                            <i className="fas fa-user-circle w-4"></i> My
-                            Account
-                          </Link>
-                        </li>
-                        <li>
-                          <button
-                            onClick={handleLogout}
-                            className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
-                          >
-                            <i className="fas fa-sign-out-alt w-4"></i> Logout
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  )}
+                  <div
+                    className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20 ${!isProfileDropdownOpen ? "hidden" : ""}`}
+                  >
+                    <ul className="py-1 text-gray-700">
+                      <li>
+                        <Link
+                          to="/account"
+                          className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-100"
+                        >
+                          <i className="fas fa-user-circle w-4"></i> My Account
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
+                        >
+                          <i className="fas fa-sign-out-alt w-4"></i> Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </>
             ) : (
-              // --- Show this button if the user IS NOT logged in ---
               <div className={`${isLoginRoute ? "hidden" : ""}`}>
                 <Link
                   to="/login"

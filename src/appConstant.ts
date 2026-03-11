@@ -1,6 +1,6 @@
 import { lazy, type ComponentType } from "react";
 
-export type RouteType = 'guest' | 'private' | 'common';
+export type RouteType = "guest" | "private" | "common";
 export interface AppRoute {
   path: string;
   Component: ComponentType;
@@ -14,7 +14,7 @@ const Product = lazy(() => import("./pages/Product"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Login = lazy(() => import("./pages/Login"));
-const Profile = lazy(() => import("./pages/Profile"));
+const Account = lazy(() => import("./pages/Account"));
 const Cart = lazy(() => import("./pages/Cart"));
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -27,7 +27,7 @@ const API_ROUTE_NAMES = {
   FEATURED: "featured",
   PRODUCTS: "products",
   SIMILAR: "similar",
-  LOGIN: "auth/login"
+  LOGIN: "auth/login",
 };
 
 const API_ROUTE_PARAM_NAMES = {
@@ -46,16 +46,16 @@ const APP_ROUTE_NAMES = {
 };
 
 const APP_ROUTES: AppRoute[] = [
-  { path: "/", Component: Home, routeType: 'common' },
-  { path: "/shop", Component: Shop, routeType: 'common' },
-  { path: "/product/:id", Component: Product, routeType: 'common' },
-  { path: "/about", Component: About, routeType: 'common' },
-  { path: "/contact", Component: Contact, routeType: 'common' },
-  { path: "/login", Component: Login, routeType: 'guest' },
+  { path: "/", Component: Home, routeType: "common" },
+  { path: "/shop", Component: Shop, routeType: "common" },
+  { path: "/product/:id", Component: Product, routeType: "common" },
+  { path: "/about", Component: About, routeType: "common" },
+  { path: "/contact", Component: Contact, routeType: "common" },
+  { path: "/login", Component: Login, routeType: "guest" },
 
   // --- Private Routes ---
-  { path: "/account", Component: Profile, routeType: 'private' },
-  { path: "/cart", Component: Cart, routeType: 'private' },
+  { path: "/account", Component: Account, routeType: "private" },
+  { path: "/cart", Component: Cart, routeType: "private" },
 ];
 
 const FEATURED_CATEGORIES = [
@@ -100,6 +100,33 @@ const PRODUCT_CATEGORY_LIST = [
   "Gardening Tools",
 ];
 
+const ACCOUNT_TABS = [
+  {
+    id: "profile",
+    icon: "fas fa-user-circle",
+    label: "Profile & Address",
+    mobileLabel: "Profile",
+  },
+  {
+    id: "orders",
+    icon: "fas fa-box",
+    label: "Your Orders",
+    mobileLabel: "Orders",
+  },
+  {
+    id: "plants",
+    icon: "fas fa-seedling",
+    label: "Your Plants",
+    mobileLabel: "Plants",
+  },
+  {
+    id: "wishlist",
+    icon: "fas fa-heart",
+    label: "Wishlist",
+    mobileLabel: "Wishlist",
+  },
+];
+
 export {
   API_URL,
   API_ROUTE_NAMES,
@@ -111,4 +138,5 @@ export {
   MAX_PAGINATION_BUTTONS,
   MAX_SIMILAR_PRODUCTS_TO_DISPLAY,
   PRODUCT_CATEGORY_LIST,
+  ACCOUNT_TABS,
 };
