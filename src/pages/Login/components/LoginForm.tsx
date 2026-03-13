@@ -23,7 +23,7 @@ const LoginForm = () => {
               Email Address
             </label>
             <input
-              placeholder="testuser.planto@gmail.com"
+              placeholder="test@planto.com"
               onChange={loginFormInputFieldsHandler}
               value={loginFormData.email}
               type="email"
@@ -42,7 +42,7 @@ const LoginForm = () => {
               Password
             </label>
             <input
-              placeholder="test1234"
+              placeholder="test123"
               onChange={loginFormInputFieldsHandler}
               value={loginFormData.password}
               type="password"
