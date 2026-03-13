@@ -4,6 +4,8 @@ import React, {
   useContext,
   type ReactNode,
   useMemo,
+  useEffect,
+  useCallback,
 } from "react";
 import { ToasterContainer } from "../components/toast/Toaster";
 import { Spinner } from "../components/spinner/Spinner";
@@ -42,7 +44,7 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({
 
   const removeToast = (id: string) => {
     setToasts((currentToasts) =>
-      currentToasts.filter((toast) => toast.id !== id)
+      currentToasts.filter((toast) => toast.id !== id),
     );
   };
 
@@ -50,9 +52,9 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({
   const hideSpinner = () => setIsLoading(false);
 
   // Common function to display toasts for feature coming soon
-  const showComingSoonToaster = (featureName: string) => {
+  const showComingSoonToaster = useCallback((featureName: string) => {
     addToast(`${featureName} feature is coming soon!`, "info");
-  };
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -61,8 +63,12 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({
       hideSpinner,
       showComingSoonToaster,
     }),
-    []
+    [showComingSoonToaster],
   );
+
+  useEffect(() => {
+    document.body.style.overflow = isLoading ? "hidden" : "";
+  }, [isLoading]);
 
   return (
     <GlobalContext.Provider value={value}>
@@ -77,7 +83,7 @@ export const useGlobalContext = (): GlobalContextType => {
   const context = useContext(GlobalContext);
   if (context === undefined) {
     throw new Error(
-      "useGlobalContext must be used within a GlobalContextProvider"
+      "useGlobalContext must be used within a GlobalContextProvider",
     );
   }
   return context;
