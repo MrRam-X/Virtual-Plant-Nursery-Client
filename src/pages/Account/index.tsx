@@ -3,19 +3,59 @@ import ProfileTab from "./components/ProfileTab";
 import OrdersTab from "./components/OrdersTab";
 import YourPlantsTab from "./components/YourPlantsTab";
 import YourWishlistTab from "./components/YourWishlistTab";
-import { ACCOUNT_TABS } from "../../appConstant";
+import Modal from "../../components/modal/Modal";
+import AddressModalForm from "./components/Profile/AddressModalForm";
+import useProfileData from "./hooks/useProfileData";
+import { ACCOUNT_TABS, DEFAULT_USER_AVATAR } from "../../appConstant";
 
 type TabType = "profile" | "orders" | "plants" | "wishlist";
 
 const Account: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>("profile");
+  const {
+    user,
+    userName,
+    activeModal,
+    activeAddressModal,
+    userAddress,
+    onUserNameChangeHandler,
+    cancelButtonHandler,
+    addressModalCloseHandler,
+    onUserAddressChangeHandler,
+    addNewAddressButtonHandler,
+    editAddressButtonHandler,
+    deleteAddressButtonHandler,
+    deleteButtonHandler,
+    cancelDeleteButtonHandler,
+  } = useProfileData();
 
-const TabPanels = {
-  profile: <ProfileTab />,
-  orders: <OrdersTab />,
-  plants: <YourPlantsTab />,
-  wishlist: <YourWishlistTab />
-}
+  const cancelButtonObj = {
+    Delete: cancelDeleteButtonHandler,
+    Save: ()=>{},
+    Clear: ()=>{}
+  }
+
+  const confirmButtonObj = {
+    Delete: deleteButtonHandler,
+    Save: ()=>{},
+    Clear: ()=>{}
+  }
+
+  const TabPanels = {
+    profile: (
+      <ProfileTab
+        user={user}
+        userName={userName}
+        onUserNameChangeHandler={onUserNameChangeHandler}
+        addNewAddressButtonHandler={addNewAddressButtonHandler}
+        editAddressButtonHandler={editAddressButtonHandler}
+        deleteAddressButtonHandler={deleteAddressButtonHandler}
+      />
+    ),
+    orders: <OrdersTab />,
+    plants: <YourPlantsTab />,
+    wishlist: <YourWishlistTab />,
+  };
 
   const toggleTab = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -34,12 +74,16 @@ const TabPanels = {
             {/* User Info */}
             <div className="text-center mb-6">
               <img
-                src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=2960&auto=format&fit=crop"
+                src={user?.avatar || DEFAULT_USER_AVATAR}
                 alt="User Avatar"
                 className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
               />
-              <h2 className="text-xl font-bold text-brand-green">Alex Doe</h2>
-              <p className="text-sm text-gray-500">alex.doe@example.com</p>
+              <h2 className="text-xl font-bold text-brand-green">
+                {user?.name || "DEFAULT_USER"}
+              </h2>
+              <p className="text-sm text-gray-500">
+                {user?.email || "DEFAULT_USER_EMAIL"}
+              </p>
             </div>
             <hr className="mb-6" />
             {/* Navigation */}
@@ -50,7 +94,7 @@ const TabPanels = {
                     <li key={tab.id}>
                       <a
                         onClick={(e) => {
-                          toggleTab(e, tab.id as TabType)
+                          toggleTab(e, tab.id as TabType);
                         }}
                         data-target="profile-panel"
                         className={`flex items-center gap-3 p-3 rounded-md ${activeTab === tab.id ? "text-white bg-brand-green" : "hover:bg-gray-100"}`}
@@ -71,13 +115,17 @@ const TabPanels = {
           {/* User Info Card */}
           <div className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-sm border mb-4">
             <img
-              src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=2960&auto=format&fit=crop"
+              src={user?.avatar || DEFAULT_USER_AVATAR}
               alt="User Avatar"
               className="w-16 h-16 rounded-full object-cover"
             />
             <div>
-              <h2 className="text-xl font-bold text-brand-green">Alex Doe</h2>
-              <p className="text-sm text-gray-500">alex.doe@example.com</p>
+              <h2 className="text-xl font-bold text-brand-green">
+                {user?.name || ""}
+              </h2>
+              <p className="text-sm text-gray-500">
+                {user?.email || "DEFAULT_USER_EMAIL"}
+              </p>
             </div>
           </div>
           {/* Tabs */}
@@ -87,9 +135,11 @@ const TabPanels = {
                 return (
                   <a
                     key={tab.id}
-                    onClick={(e) => {toggleTab(e, tab.id as TabType)}}
+                    onClick={(e) => {
+                      toggleTab(e, tab.id as TabType);
+                    }}
                     data-target="profile-panel"
-                    className={`flex-shrink-0 px-4 py-2 text-sm font-semibold border-b-2 ${activeTab === tab.id ? "border-brand-green text-brand-green": "text-gray-500 hover:text-brand-green"}`}
+                    className={`flex-shrink-0 px-4 py-2 text-sm font-semibold border-b-2 ${activeTab === tab.id ? "border-brand-green text-brand-green" : "text-gray-500 hover:text-brand-green"}`}
                   >
                     {tab.mobileLabel}
                   </a>
@@ -102,6 +152,27 @@ const TabPanels = {
         {/* RIGHT SIDE - CONTENT PANELS */}
         <div className="lg:col-span-3">{TabPanels[activeTab]}</div>
       </div>
+      {activeModal ? (
+        <Modal
+          cancelButtonHandler={cancelButtonObj[activeModal]}
+          confirmButtonHandler={confirmButtonObj[activeModal]}
+          primaryModalType={activeModal}
+        />
+      ) : (
+        <></>
+      )}
+
+      {activeAddressModal ? (
+        <AddressModalForm
+          addressState={userAddress}
+          cancelModalHandler={cancelButtonHandler}
+          closeModalHandler={addressModalCloseHandler}
+          inputChangeHandler={onUserAddressChangeHandler}
+          activeAddressModal={activeAddressModal}
+        />
+      ) : (
+        <></>
+      )}
     </main>
   );
 };

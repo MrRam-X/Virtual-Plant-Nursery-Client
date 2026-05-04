@@ -6,11 +6,23 @@ import React, {
   useContext,
 } from "react";
 
-// As of now going with default user details
+export type UserAddress = {
+  _id: string;
+  label: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  district: string;
+}
 export interface User {
   id: string;
   name: string;
   email: string;
+  address: UserAddress[];
+  avatar: string;
   token: string;
 }
 

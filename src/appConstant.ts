@@ -127,6 +127,26 @@ const ACCOUNT_TABS = [
   },
 ];
 
+const MODAL_CONFIRMATION_TEXT_CONTENT = {
+  Clear: "Are you sure you want to clear your changes?",
+  Save: "Are you sure you want to save these changes?",
+  Delete: "Are you sure you want to delete this address?",
+};
+
+const MODAL_BUTTONS_CLASSNAME = {
+  Clear: "bg-gray-100 hover:bg-gray-200",
+  Save: "text-white bg-brand-green hover:bg-brand-green-light",
+  Delete: "text-white bg-red-500 hover:bg-red-600",
+};
+
+const MODAL_PRIMARY_BUTTON_TEXT_CONTENT = {
+  Clear: "Clear",
+  Save: "Save",
+  Delete: "Delete"
+}
+
+const DEFAULT_USER_AVATAR = "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg"
+
 export {
   API_URL,
   API_ROUTE_NAMES,
@@ -139,4 +159,8 @@ export {
   MAX_SIMILAR_PRODUCTS_TO_DISPLAY,
   PRODUCT_CATEGORY_LIST,
   ACCOUNT_TABS,
+  MODAL_CONFIRMATION_TEXT_CONTENT,
+  MODAL_BUTTONS_CLASSNAME,
+  MODAL_PRIMARY_BUTTON_TEXT_CONTENT,
+  DEFAULT_USER_AVATAR
 };

@@ -54,6 +54,7 @@ const useLoginForm = () => {
       login(userData);
       navigate("/");
     } catch (err) {
+      console.log(err)
       addToast("Login unsuccessful", "error");
       console.log(err);
     } finally {
