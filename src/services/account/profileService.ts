@@ -45,7 +45,29 @@ const addNewUserAddress = async (
   }
 };
 
+/**
+ * Deletes the user address based on id
+ * @param _id - Id of the address to be deleted as params
+ * @returns A promise that resolves to an array of User Address objects.
+ */
+const deleteUserAddress = async (
+  id: string,
+): Promise<UserAddressResponse> => {
+
+  try {
+    const response = await apiClient.delete<UserAddressResponse>(
+      `/${ACCOUNT_ADDRESS}/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting address:", error);
+    throw new Error(`Failed to delete address with id: ${id}`);
+  }
+};
+
+
 export const profileService = {
-    addNewUserAddress
+    addNewUserAddress,
+    deleteUserAddress,
 }
 

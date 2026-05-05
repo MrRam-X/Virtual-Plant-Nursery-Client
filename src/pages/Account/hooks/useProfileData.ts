@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth, type UserAddress } from "../../../context/AuthContext";
 import { useGlobalContext } from "../../../context/GlobalContext";
 import { profileService } from "../../../services/account/profileService";
 import {
@@ -43,11 +43,33 @@ const useProfileData = () => {
         initialUserAddressState),
     });
   };
-  const deleteButtonHandler = () => {
-    // Api Call and remove address item from list
-    console.log(`Delete Api Called for id: ${deleteAddressId}`);
-    setActiveModal("" as ActiveModal);
+
+  const updateUserAddressStateContext = (
+    responseAddressList: UserAddress[],
+  ) => {
+    const updatedUser = getUpdatedUserWithAddress(user, responseAddressList);
+    updateUserData(updatedUser);
+    updateNewUserToLocalStorage(updatedUser);
   };
+
+  const deleteButtonHandler = async () => {
+    try {
+      showSpinner();
+      const response = await profileService.deleteUserAddress(deleteAddressId);
+      if (response.message) {
+        addToast(response.message, "success");
+        updateUserAddressStateContext(response.addresses);
+        setActiveModal("" as ActiveModal);
+      }
+    } catch (err) {
+      console.log(err);
+      addToast("Failed to delete address", "error");
+    } finally {
+      hideSpinner();
+      setActiveModal("" as ActiveModal);
+    }
+  };
+
   const cancelButtonHandler = () => {
     setUserAddress({ ...initialUserAddressState });
   };
@@ -60,6 +82,7 @@ const useProfileData = () => {
   const addressModalCloseHandler = () => {
     setActiveAddressModal("" as ActiveAddress);
   };
+
   const saveAddressChangesButtonHandler = async (
     e: React.FormEvent<HTMLFormElement>,
   ) => {
@@ -79,9 +102,7 @@ const useProfileData = () => {
       const response = await profileService.addNewUserAddress(payload);
       if (response.message) {
         addToast(response.message, "success");
-        const updatedUser = getUpdatedUserWithAddress(user, response.addresses);
-        updateUserData(updatedUser);
-        updateNewUserToLocalStorage(updatedUser);
+        updateUserAddressStateContext(response.addresses);
         setActiveAddressModal("" as ActiveAddress);
       }
     } catch (err) {
@@ -89,6 +110,7 @@ const useProfileData = () => {
       addToast("Failed to add new address", "error");
     } finally {
       hideSpinner();
+      setActiveAddressModal("" as ActiveAddress);
     }
   };
 
