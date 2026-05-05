@@ -28,6 +28,7 @@ const API_ROUTE_NAMES = {
   PRODUCTS: "products",
   SIMILAR: "similar",
   LOGIN: "auth/login",
+  ACCOUNT_ADDRESS: "account/address",
 };
 
 const API_ROUTE_PARAM_NAMES = {

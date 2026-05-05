@@ -31,6 +31,7 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   login: (userData: User) => void;
   logout: () => void;
+  updateUserData: (userData: User) => void
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -63,6 +64,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('token');
   };
 
+  // Function to update user state
+  const updateUserData = (userData: User) => {
+    setUser({...userData})
+  }
+
   const isAuthenticated = !!user;
 
   const value = useMemo(
@@ -71,6 +77,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       isAuthenticated,
       login,
       logout,
+      updateUserData,
     }),
     [user, isAuthenticated],
   );

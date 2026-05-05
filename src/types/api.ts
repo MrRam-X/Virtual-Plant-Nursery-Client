@@ -1,3 +1,5 @@
+import type { UserAddress } from "../context/AuthContext";
+
 export interface PaginatedResponse<T> {
   page: number;
   limit: number;
@@ -21,4 +23,9 @@ export type QueryParams = Record<
 export type UserLoginPayload = {
   email: string;
   password: string;
+}
+
+export type UserAddressResponse = {
+  message: string;
+  addresses: UserAddress[]
 }

@@ -27,6 +27,7 @@ const Account: React.FC = () => {
     deleteAddressButtonHandler,
     deleteButtonHandler,
     cancelDeleteButtonHandler,
+    saveAddressChangesButtonHandler,
   } = useProfileData();
 
   const cancelButtonObj = {
@@ -165,10 +166,11 @@ const Account: React.FC = () => {
       {activeAddressModal ? (
         <AddressModalForm
           addressState={userAddress}
+          activeAddressModal={activeAddressModal}
           cancelModalHandler={cancelButtonHandler}
           closeModalHandler={addressModalCloseHandler}
           inputChangeHandler={onUserAddressChangeHandler}
-          activeAddressModal={activeAddressModal}
+          saveAddressChangesButtonHandler={saveAddressChangesButtonHandler}
         />
       ) : (
         <></>

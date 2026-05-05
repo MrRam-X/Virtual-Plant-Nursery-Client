@@ -10,14 +10,16 @@ type AddressModalFormProps = {
   inputChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   addressState: UserAddress;
   activeAddressModal: ActiveAddress;
+  saveAddressChangesButtonHandler: (e: React.FormEvent<HTMLFormElement>) => Promise<void>
 };
 
 const AddressModalForm: React.FC<AddressModalFormProps> = ({
+  addressState,
+  activeAddressModal,
   closeModalHandler,
   cancelModalHandler,
   inputChangeHandler,
-  addressState,
-  activeAddressModal,
+  saveAddressChangesButtonHandler,
 }) => {
   const {
     label,
@@ -46,7 +48,7 @@ const AddressModalForm: React.FC<AddressModalFormProps> = ({
             &times;
           </button>
         </div>
-        <form id="address-form" className="space-y-4">
+        <form onSubmit={saveAddressChangesButtonHandler} className="space-y-4">
           <div>
             <label className="block text-sm font-medium">
               Address Label (e.g., Home, Work)
@@ -72,7 +74,7 @@ const AddressModalForm: React.FC<AddressModalFormProps> = ({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium">
-                Address Line 1
+                Address Line 2
               </label>
               <input
                 name="addressLine2"
@@ -140,7 +142,6 @@ const AddressModalForm: React.FC<AddressModalFormProps> = ({
               className={MODAL_BUTTONS_CLASSNAME.Clear}
             />
             <button
-              type="submit"
               className="py-2 px-5 rounded-md font-semibold text-white bg-brand-green hover:bg-brand-green-light"
             >
               Save Address
