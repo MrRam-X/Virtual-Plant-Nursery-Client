@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL, API_ROUTE_NAMES } from "../../appConstant";
 import type { UserAddressResponse } from "../../types/api";
+import type { UserAddress } from "../../context/AuthContext";
 
 type UserAddressPayload = {
     label: string;
@@ -65,9 +66,30 @@ const deleteUserAddress = async (
   }
 };
 
+/**
+ * Updated the user address based on id and payload
+ * @param payload - An object of the user address info to be updated as payload.
+ * @returns A promise that resolves to an array of User Address objects.
+ */
+const updateUserAddress = async (
+  payload: UserAddress
+): Promise<UserAddressResponse> => {
+
+  try {
+    const response = await apiClient.patch<UserAddressResponse>(
+      `/${ACCOUNT_ADDRESS}/${payload._id}`, payload
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user address:", error);
+    throw new Error(`Failed to update address with id: ${payload._id}`);
+  }
+};
+
 
 export const profileService = {
     addNewUserAddress,
     deleteUserAddress,
+    updateUserAddress,
 }
 

@@ -96,10 +96,10 @@ const useProfileData = () => {
       return;
     }
 
+    const { _id, ...payload } = userAddress;
     try {
       showSpinner();
-      const { _id: _unused, ...payload } = userAddress;
-      const response = await profileService.addNewUserAddress(payload);
+      const response = _id ? await profileService.updateUserAddress(userAddress) : await profileService.addNewUserAddress(payload);
       if (response.message) {
         addToast(response.message, "success");
         updateUserAddressStateContext(response.addresses);
@@ -107,7 +107,7 @@ const useProfileData = () => {
       }
     } catch (err) {
       console.log(err);
-      addToast("Failed to add new address", "error");
+      addToast(`Failed to ${_id ? "update" : "add"} new address`, "error");
     } finally {
       hideSpinner();
       setActiveAddressModal("" as ActiveAddress);
