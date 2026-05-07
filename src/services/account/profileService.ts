@@ -1,7 +1,7 @@
-import axios from "axios";
-import { API_URL, API_ROUTE_NAMES } from "../../appConstant";
+import { API_ROUTE_NAMES } from "../../appConstant";
 import type { UserAddressResponse } from "../../types/api";
 import type { UserAddress } from "../../context/AuthContext";
+import { apiClient } from "../apiAuthClient";
 
 type UserAddressPayload = {
     label: string;
@@ -13,16 +13,6 @@ type UserAddressPayload = {
     country: string;
     district: string;
 }
-
-const token = localStorage.getItem("token")
-
-const apiClient = axios.create({
-  baseURL: `${API_URL}`,
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
-  },
-});
 
 const { ACCOUNT_ADDRESS } = API_ROUTE_NAMES
 
