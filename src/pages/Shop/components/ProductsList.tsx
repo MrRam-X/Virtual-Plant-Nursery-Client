@@ -8,10 +8,12 @@ type ProductsListProps = {
 
 const ProductsList: React.FC<ProductsListProps> = ({ products }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
-      {products.map((product) => {
-        return <ProductCard key={product._id} product={product}/>;
-      })}
+    <div className="md:px-8 lg:px-0">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-x-6 sm:gap-y-10">
+        {products.map((product) => {
+          return <ProductCard key={product._id} product={product} />;
+        })}
+      </div>
     </div>
   );
 };

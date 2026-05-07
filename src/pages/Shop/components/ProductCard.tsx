@@ -8,55 +8,45 @@ type ProductCardProps = {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200 flex flex-col">
-      <div className="flex-grow">
-        <Link
-          to={`${APP_ROUTE_NAMES.PRODUCT}/${product._id}`}
-          className="block relative h-72 sm:h-80 overflow-hidden group"
-        >
-          <div className="absolute top-0 left-0 bg-brand-accent text-white text-xs font-bold px-2 py-1 m-3 rounded-md z-10">
-            {product.discount}
-          </div>
-          <img
-            src={product.imageUrl[0] || ""}
-            alt={`${product.name || "defaultProduct"}.jpg`}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-        </Link>
+    <Link
+      to={`${APP_ROUTE_NAMES.PRODUCT}/${product._id}`}
+      className="group block"
+    >
+      <div className="relative w-full aspect-square overflow-hidden rounded-2xl bg-gray-100 mb-3 sm:mb-4">
+        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-brand-accent text-white text-[9px] sm:text-[10px] font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full uppercase tracking-wider z-10">
+          {product.discount}
+        </div>
 
-        <div className="p-4 space-y-3">
-          <div className="flex justify-between items-center text-xs">
-            <p className="text-gray-500">{product.category}</p>
-            <div className="flex items-center gap-1">
-              <i className="fas fa-star text-yellow-500"></i>
-              <span className="font-semibold">{product.rating}</span>
-            </div>
-          </div>
-          <Link
-            to={`${APP_ROUTE_NAMES.PRODUCT}/${product._id}`}
-            className="block font-medium text-brand-green hover:underline text-lg"
-          >
-            {product.name}
-          </Link>
-          <div className="flex items-baseline gap-2">
-            <p className="text-lg text-black font-bold">{`${product.currency} ${product.discountedPrice}.00`}</p>
-            <p className="text-sm text-gray-500 line-through">{`${product.currency} ${product.price}.00`}</p>
+        <img
+          src={product.imageUrl[0] || ""}
+          alt={`${product.name || "defaultProduct"}.jpg`}
+          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+      </div>
+
+      <div className="space-y-1 px-1">
+        <div className="flex justify-between items-center">
+          <p className="uppercase tracking-widest text-[9px] sm:text-[10px] font-bold text-gray-400">
+            {product.category}
+          </p>
+          <div className="flex items-center gap-1 text-gray-500">
+            <i className="fas fa-star text-yellow-400 text-[9px] sm:text-[10px]"></i>
+            <span className="text-[10px] sm:text-xs font-medium">
+              {product.rating}
+            </span>
           </div>
         </div>
-      </div>
 
-      <div className="border-t border-gray-200 p-2 space-y-2">
-        <button className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold bg-white text-red-500 border border-red-500 rounded-sm hover:bg-red-500 hover:text-white transition-colors duration-300">
-          <i className="fas fa-heart"></i>
-          <span>Wishlist</span>
-        </button>
+        <h3 className="font-sans text-base sm:text-lg font-medium text-brand-green group-hover:text-brand-accent transition-colors duration-300 leading-tight pt-1">
+          {product.name}
+        </h3>
 
-        <button className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold bg-brand-green text-white border border-transparent rounded-md hover:bg-white hover:text-brand-green hover:border-brand-green transition-colors duration-300">
-          <i className="fas fa-shopping-cart"></i>
-          <span>Add to Cart</span>
-        </button>
+        <div className="flex items-baseline gap-2 pt-0.5">
+          <p className="text-base sm:text-lg text-brand-green font-bold">{`${product.currency} ${product.discountedPrice}.00`}</p>
+          <p className="text-xs sm:text-sm text-gray-400 line-through">{`${product.currency} ${product.price}.00`}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
