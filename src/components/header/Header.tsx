@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { APP_ROUTE_NAMES } from "../../appConstant";
+import { useUserActionContext } from "../../context/UserActionContext";
 
 type HeaderProps = {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -9,6 +10,7 @@ type HeaderProps = {
 
 export const Header: React.FC<HeaderProps> = ({ containerRef }) => {
   const { isAuthenticated, logout } = useAuth();
+  const { cartItemCount } = useUserActionContext()
   const location = useLocation();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -134,8 +136,8 @@ export const Header: React.FC<HeaderProps> = ({ containerRef }) => {
                   className="text-white hover:text-brand-accent relative"
                 >
                   <i className="fas fa-shopping-cart fa-lg"></i>
-                  <span className="absolute -top-2 -right-2 bg-brand-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    3
+                  <span className={`absolute -top-2 -right-2 bg-brand-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center ${!cartItemCount ? "hidden" : ""}`}>
+                    {cartItemCount}
                   </span>
                 </Link>
                 <div className="relative">

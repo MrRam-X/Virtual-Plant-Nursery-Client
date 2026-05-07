@@ -1,10 +1,11 @@
+import { useUserActionContext } from "../../context/UserActionContext";
 import ProductDetails from "./components/ProductDetails";
 import SimilarProductsList from "./components/SimilarProductsList";
 import useProductDetailsPageData from "./hooks/useProductDetailsPageData";
 
 const Product: React.FC = () => {
-  const { productDetails, similarProducts } = useProductDetailsPageData()
-
+  const { productDetails, similarProducts } = useProductDetailsPageData();
+  const { cartItems, updateCart } = useUserActionContext();
   return (
     <main className="bg-brand-off-white py-8 sm:py-12">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -22,10 +23,14 @@ const Product: React.FC = () => {
         </div>
 
         {/* Main Product Section */}
-        <ProductDetails productDetails={productDetails}/>
+        <ProductDetails
+          productDetails={productDetails}
+          cartItems={cartItems}
+          updateCart={updateCart}
+        />
 
         {/* Related Products Section */}
-        <SimilarProductsList similarProducts={similarProducts}/>
+        <SimilarProductsList similarProducts={similarProducts} />
       </div>
     </main>
   );

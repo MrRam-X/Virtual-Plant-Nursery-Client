@@ -2,12 +2,22 @@ import React from "react";
 import type { Product } from "../../../types/Product";
 import { generatePriceTextWithCurrency } from "../../../utils/commonUtil";
 import useAccordions from "../../../hooks/useAccordions";
+import type {
+  CartItem,
+  CartActionType,
+} from "../../../context/UserActionContext";
 
 export type ProductInfoProps = {
   productDetails: Product | undefined;
+  cartItems: CartItem[];
+  updateCart: (item: Product, action: CartActionType) => void;
 };
 
-const ProductInfo: React.FC<ProductInfoProps> = ({ productDetails }) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({
+  productDetails,
+  cartItems,
+  updateCart,
+}) => {
   const actualPrice = generatePriceTextWithCurrency(
     productDetails?.currency || "",
     productDetails?.price || 0,
@@ -18,6 +28,11 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productDetails }) => {
   );
 
   const { openAccordions, toggleAccordion } = useAccordions();
+
+  const inCartItem =
+    productDetails && cartItems.find((item) => item._id === productDetails._id);
+
+  const itemQuantity = inCartItem?.quantity || 0;
 
   return (
     <div className="space-y-6">
@@ -52,30 +67,36 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productDetails }) => {
       </p>
 
       <div className="flex items-center gap-4 pt-4">
-        <div className="quantity-selector flex items-center border rounded-md">
+        {inCartItem ? (
+          <div className="flex items-center border rounded-md w-min mt-2 bg-brand-off-white">
+            <button
+              onClick={() => updateCart(productDetails as Product, "REDUCE")}
+              className="px-3 py-1 text-lg hover:bg-gray-200"
+            >
+              -
+            </button>
+            <input
+              type="text"
+              value={itemQuantity}
+              readOnly
+              className="w-10 text-center font-semibold"
+            />
+            <button
+              onClick={() => updateCart(productDetails as Product, "ADD")}
+              className="px-3 py-1 text-lg hover:bg-gray-200"
+            >
+              +
+            </button>
+          </div>
+        ) : (
           <button
-            data-action="decrement"
-            className="px-4 py-2 text-lg font-bold hover:bg-gray-200 rounded-l-md"
+            onClick={() => updateCart(productDetails as Product, "ADD")}
+            className="w-full py-3 px-4 rounded-md text-lg font-bold text-white bg-brand-green hover:bg-brand-green-light transition-all flex-1"
           >
-            -
+            Add to Cart
           </button>
-          <input
-            id="quantity-input"
-            type="text"
-            value="1"
-            readOnly
-            className="w-12 text-center border-l border-r font-semibold"
-          />
-          <button
-            data-action="increment"
-            className="px-4 py-2 text-lg font-bold hover:bg-gray-200 rounded-r-md"
-          >
-            +
-          </button>
-        </div>
-        <button className="w-full py-3 px-4 rounded-md text-lg font-bold text-white bg-brand-green hover:bg-brand-green-light transition-all flex-1">
-          Add to Cart
-        </button>
+        )}
+
         <button className="py-3 px-4 border rounded-md text-xl text-red-500 hover:bg-red-50 transition-all">
           <i className="far fa-heart"></i>
         </button>
@@ -101,7 +122,6 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productDetails }) => {
             className={`pb-4 space-y-2 text-gray-600 ${openAccordions["careGuide"] ? "" : "hidden"}`}
             data-accordion-panel
           >
-
             {Object.entries(productDetails?.careGuide || {}).map(
               ([key, value]) => (
                 <p key={key}>
@@ -129,9 +149,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productDetails }) => {
             className={`pb-4 space-y-2 text-gray-600 ${openAccordions["shippingReturns"] ? "" : "hidden"}`}
             data-accordion-panel
           >
-            <p>
-              {productDetails?.shippingDetails || ''}
-            </p>
+            <p>{productDetails?.shippingDetails || ""}</p>
           </div>
         </div>
       </div>
